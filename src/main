@@ -1,0 +1,47 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+# Importar as classes LinkedInLogin e LinkedInCrawler
+from modules.LinkedInLogin import LinkedInLogin
+from modules.LinkedInCrawler import LinkedInCrawler
+
+from dotenv import load_dotenv
+import os
+
+def main():
+    # Inicializar o WebDriver do Chrome
+    driver = webdriver.Chrome()
+
+    # Carregue as variáveis de ambiente do arquivo .env
+    load_dotenv()
+
+    # Insira suas credenciais do LinkedIn
+    email = os.environ["email"]
+    password = os.environ["password"]
+
+    # Criar uma instância da classe LinkedInLogin passando o driver WebDriver
+    linkedin_login = LinkedInLogin(email, password, driver)
+    linkedin_login.login()
+
+    if linkedin_login.login_successful():
+        # Criar uma instância da classe LinkedInCrawler passando o mesmo driver WebDriver
+        crawler = LinkedInCrawler(driver)
+        preferences = {}  # Aqui você colocaria as preferências do usuário
+        job_vacancies = crawler.extract_job_vacancies(preferences)
+        print(job_vacancies)
+
+    # Fechar o navegador após concluir
+    driver.quit()
+
+    # Obtenha as preferências do usuário
+    # user_preferences = get_user_preferences()
+
+    # # Extraia vagas de acordo com as preferências do usuário
+    # job_vacancies = linkedin_crawler.extract_job_vacancies(user_preferences)
+
+    # # Envie as vagas pelo WhatsApp
+    # send_whatsapp_message(job_vacancies)
+
+    linkedin_login.close()
+if __name__ == "__main__":
+    main()

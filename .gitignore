@@ -1,0 +1,30 @@
+# Arquivos de compilação
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+
+# Arquivos de ambiente virtual
+venv/
+env/
+ENV/
+
+# Arquivos de log e cache
+logs/
+*.log
+*.cache
+
+# Arquivos de configuração
+*.env
+
+# Arquivos de dependências
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Arquivos temporários
+*.swp
+*.swo
+*~
+.DS_Store
